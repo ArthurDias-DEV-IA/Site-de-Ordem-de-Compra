@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ordem de Compras — Sistema</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden><rect width="24" height="24" rx="6" fill="#2b6cb0"/></svg>
+    <div>
+      <h1>Ordem de Compras</h1>
+      <p class="muted">Cadastro e controle das ordens de compras realizadas</p>
+    </div>
+  </div>
+  <div class="actions">
+    <button id="btnExport" class="btn ghost">Exportar CSV</button>
+    <button id="btnNew" class="btn primary">Nova Ordem</button>
+  </div>
+</header>
+
+<main class="container">
+  <aside class="panel filters">
+    <h2>Filtros</h2>
+    <label>Pesquisar
+      <input id="q" placeholder="Produto, fornecedor ou id" />
+    </label>
+    <label>Status
+      <select id="filterStatus">
+        <option value="all">Todos</option>
+        <option value="pendente">Pendente</option>
+        <option value="em_andamento">Em andamento</option>
+        <option value="recebido">Recebido</option>
+        <option value="cancelado">Cancelado</option>
+      </select>
+    </label>
+    <label>Fornecedor
+      <input id="filterSupplier" placeholder="Nome do fornecedor" />
+    </label>
+    <div class="stats">
+      <div><strong id="totalOrders">0</strong><span>Ordens</span></div>
+      <div><strong id="totalValue">R$ 0,00</strong><span>Valor total</span></div>
+    </div>
+  </aside>
+
+  <section class="panel list">
+    <div class="controls">
+      <div class="sort">
+        <label>Ordenar
+          <select id="sortBy">
+            <option value="created_desc">Mais recentes</option>
+            <option value="created_asc">Mais antigos</option>
+            <option value="value_desc">Maior valor</option>
+            <option value="value_asc">Menor valor</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <table id="ordersTable" class="orders">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Fornecedor</th>
+          <th>Produtos</th>
+          <th>Valor</th>
+          <th>Data</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p id="emptyHint" class="empty">Nenhuma ordem encontrada. Crie uma nova ordem.</p>
+  </section>
+
+  <aside class="panel detail" id="detailPanel" hidden>
+    <div class="detail-header">
+      <h3>Detalhes da Ordem <span id="detailId"></span></h3>
+      <button id="closeDetail" class="btn ghost">Fechar</button>
+    </div>
+    <div id="detailContent"></div>
+    <div class="detail-actions">
+      <button id="btnEdit" class="btn">Editar</button>
+      <button id="btnDelete" class="btn danger">Excluir</button>
+    </div>
+  </aside>
+</main>
+
+<!-- Modal -->
+<div id="modal" class="modal" aria-hidden="true">
+  <div class="modal-card">
+    <header>
+      <h2 id="modalTitle">Nova Ordem</h2>
+      <button id="modalClose" class="btn ghost">✕</button>
+    </header>
+    <form id="orderForm">
+      <label>Fornecedor
+        <input name="supplier" required />
+      </label>
+
+      <label>Produtos (uma por linha: nome|quantidade|preço)
+        <textarea name="items" placeholder="Ex: Parafuso|10|2.5" required></textarea>
+        <small class="muted">Formato: nome|quantidade|preço (separados por pipe)</small>
+      </label>
+
+      <label>Data
+        <input type="date" name="date" required />
+      </label>
+
+      <label>Status
+        <select name="status" required>
+          <option value="pendente">Pendente</option>
+          <option value="em_andamento">Em andamento</option>
+          <option value="recebido">Recebido</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+      </label>
+
+      <div class="form-actions">
+        <button type="submit" class="btn primary">Salvar</button>
+        <button type="button" id="modalCancel" class="btn ghost">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

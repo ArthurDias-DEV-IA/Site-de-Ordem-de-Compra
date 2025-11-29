@@ -1,0 +1,87 @@
+/* Estilo moderno, limpo e responsivo */
+:root{
+  --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#2b6cb0; --success:#16a34a; --danger:#ef4444;
+  --glass: rgba(255,255,255,0.03);
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#061226 0%, #071226 60%);
+  color:#e6eef8;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding:18px;
+}
+
+/* Topbar */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;margin-bottom:18px;
+}
+.brand{display:flex;gap:12px;align-items:center}
+.brand h1{margin:0;font-size:16px}
+.brand p{margin:0;font-size:12px;color:var(--muted)}
+.topbar .actions{display:flex;gap:8px;align-items:center}
+
+/* Buttons */
+.btn{
+  border:0;padding:8px 12px;border-radius:10px;background:var(--glass);color:inherit;cursor:pointer;
+  box-shadow: 0 2px 8px rgba(2,6,23,0.6);font-weight:600;
+}
+.btn.primary{background:linear-gradient(90deg,var(--accent),#1e90ff);color:white}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04)}
+.btn.danger{background:linear-gradient(90deg,var(--danger),#ff6b6b);color:white}
+
+/* Layout */
+.container{display:grid;grid-template-columns:280px 1fr 360px;gap:16px;align-items:start}
+.panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:16px;border-radius:12px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+.filters label, .panel label{display:block;margin-bottom:10px;font-size:13px}
+.filters input, .filters select, .panel input, textarea, select{width:100%;padding:8px;border-radius:8px;border:0;background:rgba(255,255,255,0.03);color:inherit}
+.muted{color:var(--muted);font-size:12px}
+
+/* Stats */
+.stats{display:flex;gap:12px;margin-top:12px}
+.stats div{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px;text-align:center}
+.stats strong{display:block;font-size:16px}
+
+/* List */
+.controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.orders{width:100%;border-collapse:collapse}
+.orders thead th{font-weight:600;text-align:left;padding:10px;border-bottom:1px solid rgba(255,255,255,0.03);font-size:13px}
+.orders tbody td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.02);font-size:14px}
+.badge{padding:6px 8px;border-radius:999px;font-weight:700;font-size:12px}
+.badge.pendente{background:#263238;color:#ffd54f}
+.badge.em_andamento{background:#1f2937;color:#60a5fa}
+.badge.recebido{background:#042e1f;color:#a7f3d0}
+.badge.cancelado{background:#2b0b0b;color:#ffd8d8}
+
+/* Empty */
+.empty{color:var(--muted);text-align:center;padding:18px}
+
+/* Detail panel */
+.detail-header{display:flex;justify-content:space-between;align-items:center}
+.detail-actions{display:flex;gap:8px;margin-top:12px}
+
+/* Modal */
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);backdrop-filter: blur(6px);transition:opacity .15s}
+.modal-card{width:680px;max-width:96%;background:linear-gradient(180deg, #071426, #041022);border-radius:12px;padding:16px}
+.modal header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.modal form label{display:block;margin-bottom:10px}
+.modal textarea{min-height:96px;padding:10px;}
+
+/* Responsive */
+@media (max-width:980px){
+  .container{grid-template-columns:1fr;grid-auto-rows:min-content}
+  .detail{order:3}
+  .filters{order:1}
+  .list{order:2}
+}
+
+
+/* Modal visible state */
+.modal.open{display:flex !important; opacity:1; pointer-events:auto;}
+.modal{pointer-events:none; opacity:0; transition:opacity .18s ease}
+.modal .modal-card{transform:translateY(0); transition:transform .18s ease}
